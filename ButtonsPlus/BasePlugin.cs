@@ -24,7 +24,7 @@ namespace ButtonsPlus
     }
 
 
-    [BepInPlugin("mtm101.rulerp.baldiplus.buttonsplus", "Buttons+", "1.0.0.0")]
+    [BepInPlugin("mtm101.rulerp.baldiplus.buttonsplus", "Buttons+", "1.0.0.1")]
     public class ButtonsPlusPlugin : BaseUnityPlugin
     {
 

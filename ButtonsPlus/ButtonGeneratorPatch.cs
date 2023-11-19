@@ -63,14 +63,16 @@ namespace ButtonsPlus
         {
             if (!ButtonsPlusPlugin.Instance.DoLockdownLevers) return;
             LockdownDoor[] doors = room.transform.GetComponentsInChildren<LockdownDoor>();
-            if (doors.Length == 0)
-            {
-                Debug.LogWarning("Unable to find newly added lockdown door! Was it discarded, or has something gone wrong??");
-                return;
+            foreach (LockdownDoor door in doors) 
+            { 
+                if (door.gameObject.GetComponent<LockdownHandledByLever>() == null)
+                {
+                    door.gameObject.AddComponent<LockdownHandledByLever>();
+                }
             }
-            LockdownDoor d = doors.Last();
+            /*LockdownDoor d = doors.Last();
             if (d.gameObject.GetComponent<LockdownHandledByLever>()) throw new Exception("Attempted to add LockdownHandledByLever to a door that already had it!");
-            d.gameObject.AddComponent<LockdownHandledByLever>();
+            d.gameObject.AddComponent<LockdownHandledByLever>();*/
         }
     }
 }

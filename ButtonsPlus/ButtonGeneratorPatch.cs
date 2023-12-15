@@ -1,6 +1,5 @@
 ﻿using BepInEx;
 using HarmonyLib;
-using MTM101BaldAPI.AssetManager;
 using MTM101BaldAPI;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Linq;
 using UnityEngine.Assertions;
 using System.Reflection.Emit;
 using System.Reflection;
+using MTM101BaldAPI.Registers.Buttons;
 
 namespace ButtonsPlus
 {
@@ -22,9 +22,9 @@ namespace ButtonsPlus
             if (!ButtonsPlusPlugin.Instance.DoRandomButtonColors) return;
             if (__result.gameObject.name.Contains("New Game Object")) return;
             // I wanted to create a seperate seed consistent RNG so custom button colors don't change all seeds, but I can't find a good way of pulling that off...
-            Dictionary<string, ButtonMaterials>.ValueCollection values = ButtonsPlusPlugin.buttonColors.Values;
+            Dictionary<string, ButtonMaterials>.ValueCollection values = ButtonColorManager.buttonColors.Values;
             ButtonMaterials bM = values.ToList()[cRng.Next(values.Count)];
-            ButtonsPlusPlugin.ApplyButtonMaterials(__result, bM);
+            ButtonColorManager.ApplyButtonMaterials(__result, bM);
         }
     }
 

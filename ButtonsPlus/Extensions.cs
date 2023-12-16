@@ -6,12 +6,13 @@ using System.Text;
 using UnityEngine;
 using MTM101BaldAPI.Registers.Buttons;
 using MTM101BaldAPI;
+using HarmonyLib;
 
 namespace ButtonsPlus
 {
     public static class Extensions
     {
-        private static void ChangeLeverColorRandom(GameLever lvr, System.Random cRng)
+        internal static void ChangeLeverColorRandom(GameLever lvr, System.Random cRng)
         {
             if (!ButtonsPlusPlugin.Instance.DoRandomButtonColors) return;
             // I wanted to create a seperate seed consistent RNG so custom button colors don't change all seeds, but I can't find a good way of pulling that off...
@@ -51,6 +52,17 @@ namespace ButtonsPlus
             yield return null;
             GameObject.Destroy(go);
             yield break;
+        }
+    }
+
+    //i cant believe im patching MY OWN FUNCTION
+    [HarmonyPatch(typeof(GeneratorHelpers))]
+    [HarmonyPatch("BuildLeverInArea")]
+    static class LevelBuilderPatch
+    {
+        static void Postfix(ref GameLever __result, ref System.Random cRng)
+        {
+            Extensions.ChangeLeverColorRandom(__result, cRng);
         }
     }
 }

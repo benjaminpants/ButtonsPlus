@@ -9,6 +9,7 @@ using System.Linq;
 using UnityEngine.Assertions;
 using System.Reflection;
 using BepInEx.Configuration;
+using MTM101BaldAPI.SaveSystem;
 
 namespace ButtonsPlus
 {
@@ -23,6 +24,8 @@ namespace ButtonsPlus
             Harmony harmony = new Harmony("mtm101.rulerp.baldiplus.buttonsplus");
 
             harmony.PatchAllConditionals();
+
+            ModdedSaveGame.AddSaveHandler(Info);
         }
 
 
